@@ -4,6 +4,7 @@ import lombok.Generated;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotBlank;
@@ -21,11 +22,11 @@ public class Team {
     @Id
     private String teamId;
 
+    @Indexed(unique = true)
     @NotBlank(message = "Debe tener un nombre de equipo asociado para este objeto.")
     private String teamName;
 
     @NotBlank(message = "Debe tener un pais asociado para este objeto.")
     private String associatedCountry;
-
 
 }
