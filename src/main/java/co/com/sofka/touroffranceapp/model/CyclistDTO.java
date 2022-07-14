@@ -17,7 +17,6 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class CyclistDTO {
 
     private String cyclistId;
@@ -33,6 +32,13 @@ public class CyclistDTO {
 
     public CyclistDTO(@NotBlank String fullName,@NotBlank String teamId,@NotBlank String nationality) {
         this.cyclistId=UUID.randomUUID().toString().toUpperCase().substring(0,3);
+        this.fullName = fullName;
+        this.teamId = teamId;
+        this.nationality = nationality;
+    }
+
+    public CyclistDTO(String cyclistId, String fullName, String teamId, String nationality) {
+        this.cyclistId = cyclistId;
         this.fullName = fullName;
         this.teamId = teamId;
         this.nationality = nationality;
