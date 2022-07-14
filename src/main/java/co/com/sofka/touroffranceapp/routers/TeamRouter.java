@@ -22,14 +22,14 @@ public class TeamRouter {
 
     @Bean
     public RouterFunction<ServerResponse> create(CreateTeamUseCase createTeamUseCase){
-        Function<TeamDTO, Mono<ServerResponse>> executor = teamDTO -> createTeamUseCase.saveTeam(teamDTO)
+        Function<TeamDTO, Mono<ServerResponse>> createTeam = teamDTO -> createTeamUseCase.saveTeam(teamDTO)
                 .flatMap(result -> ServerResponse.ok()
-                        .contentType(MediaType.TEXT_PLAIN)
+                        .contentType(MediaType.APPLICATION_JSON)
                         .bodyValue(result));
 
         return route(
                POST("/team/create").and(accept(APPLICATION_JSON)),
-                request -> request.bodyToMono(TeamDTO.class).flatMap(executor)
-        );
+                request -> request.bodyToMono(TeamDTO.class)
+                        .flatMap(createTeam));
     }
 }
