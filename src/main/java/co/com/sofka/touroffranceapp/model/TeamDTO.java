@@ -33,12 +33,6 @@ public class TeamDTO {
 
     private List<CyclistDTO> cyclists;
 
-    public TeamDTO(@NotBlank String teamName,@NotBlank String associatedCountry) {
-        this.teamId = UUID.randomUUID().toString().toUpperCase().substring(0,3);
-        this.teamName = teamName;
-        this.associatedCountry = associatedCountry;
-    }
-
     public TeamDTO(String teamId, String teamName, String associatedCountry) {
         this.teamId = teamId;
         this.teamName = teamName;

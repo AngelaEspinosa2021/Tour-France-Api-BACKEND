@@ -3,9 +3,13 @@ package co.com.sofka.touroffranceapp.usecases.team;
 import co.com.sofka.touroffranceapp.mapper.MapperTeam;
 import co.com.sofka.touroffranceapp.model.TeamDTO;
 import co.com.sofka.touroffranceapp.repositories.TeamRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
+
+import java.net.http.HttpConnectTimeoutException;
 
 /**
  * Clase que representa el caso de uso de crear un Team.
@@ -33,6 +37,12 @@ public class CreateTeamUseCase implements SaveTeamInterface {
     public Mono<TeamDTO> saveTeam(TeamDTO teamDTO) {
         return teamRepository
                 .save(mapperTeam.mapperATeam(null).apply(teamDTO))
-                .map(mapperTeam.mapperATeamDTO());
+                .map(mapperTeam.mapperATeamDTO())
+                .onErrorResume(error -> {
+                    if(error.equals(HttpStatus.NOT_FOUND)){
+                        return Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND));
+                    }
+                    return Mono.error(new RuntimeException("Nombre de Equipo ya registrado."));
+                });
     }
 }

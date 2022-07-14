@@ -29,4 +29,12 @@ public class Team {
     @NotBlank(message = "Debe tener un pais asociado para este objeto.")
     private String associatedCountry;
 
+    public void setTeamId(String teamId) {
+        if(teamId==null){
+            this.teamId = UUID.randomUUID().toString().toUpperCase().substring(0,3);
+        }
+        else{
+            this.teamId = teamId;
+        }
+    }
 }
