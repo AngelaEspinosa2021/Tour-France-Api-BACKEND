@@ -1,11 +1,13 @@
 package co.com.sofka.touroffranceapp.collections;
 
+import lombok.Generated;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotBlank;
+import java.util.UUID;
 
 /**
  * Team class.
@@ -19,10 +21,11 @@ public class Team {
     @Id
     private String teamId;
 
-    @NotBlank
+    @NotBlank(message = "Debe tener un nombre de equipo asociado para este objeto.")
     private String teamName;
 
-    @NotBlank
+    @NotBlank(message = "Debe tener un pais asociado para este objeto.")
     private String associatedCountry;
+
 
 }

@@ -19,13 +19,13 @@ public class Cyclist {
     @Id
     private String cyclistId;
 
-    @NotBlank
+    @NotBlank(message = "Debe tener un nombre completo asociado para este objeto.")
     private String fullName;
 
-    @NotBlank
+    @NotBlank(message = "Debe tener un teamId asociado para este objeto.")
     private String teamId;
 
-    @NotBlank
+    @NotBlank(message = "Debe tener una nacionalidad asociada para este objeto.")
     private String nationality;
 
 
