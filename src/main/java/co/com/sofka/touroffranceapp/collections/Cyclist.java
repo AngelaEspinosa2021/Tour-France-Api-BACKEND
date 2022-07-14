@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotBlank;
+import java.util.UUID;
 
 /**
  * Cyclist class.
@@ -28,5 +29,12 @@ public class Cyclist {
     @NotBlank(message = "Debe tener una nacionalidad asociada para este objeto.")
     private String nationality;
 
-
+    public void setCyclistId(String cyclistId) {
+        if(cyclistId==null){
+            this.cyclistId=UUID.randomUUID().toString().toUpperCase().substring(0,3);
+        }
+        else {
+            this.cyclistId = cyclistId;
+        }
+    }
 }

@@ -30,13 +30,6 @@ public class CyclistDTO {
     @NotBlank(message = "Debe tener una nacionalidad asociada para este objeto.")
     private String nationality;
 
-    public CyclistDTO(@NotBlank String fullName,@NotBlank String teamId,@NotBlank String nationality) {
-        this.cyclistId=UUID.randomUUID().toString().toUpperCase().substring(0,3);
-        this.fullName = fullName;
-        this.teamId = teamId;
-        this.nationality = nationality;
-    }
-
     public CyclistDTO(String cyclistId, String fullName, String teamId, String nationality) {
         this.cyclistId = cyclistId;
         this.fullName = fullName;
