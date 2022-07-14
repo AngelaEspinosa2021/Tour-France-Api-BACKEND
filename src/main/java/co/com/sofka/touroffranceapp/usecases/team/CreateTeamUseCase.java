@@ -1,5 +1,6 @@
 package co.com.sofka.touroffranceapp.usecases.team;
 
+import co.com.sofka.touroffranceapp.exceptions.CustomExceptionBadRequest;
 import co.com.sofka.touroffranceapp.mapper.MapperTeam;
 import co.com.sofka.touroffranceapp.model.TeamDTO;
 import co.com.sofka.touroffranceapp.repositories.TeamRepository;
@@ -35,14 +36,30 @@ public class CreateTeamUseCase implements SaveTeamInterface {
      */
     @Override
     public Mono<TeamDTO> saveTeam(TeamDTO teamDTO) {
-        return teamRepository
-                .save(mapperTeam.mapperATeam(null).apply(teamDTO))
-                .map(mapperTeam.mapperATeamDTO())
-                .onErrorResume(error -> {
-                    if(error.equals(HttpStatus.NOT_FOUND)){
-                        return Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return teamRepository.findByTeamName(teamDTO.getTeamName())
+                .map(element -> {
+                    if(element.getTeamName().equals(Mono.empty())){
+                        teamRepository.save(mapperTeam.mapperATeam().apply(teamDTO));
                     }
-                    return Mono.error(new RuntimeException("Nombre de Equipo ya registrado."));
+                    throw new CustomExceptionBadRequest("Nombre de Equipo ya registrado.");
                 });
     }
+
+
+
+/*     return teamRepository.save(mapperTeam.mapperATeam().apply(teamDTO))
+            .map(element -> {
+        if(teamRepository.findByTeamName(teamDTO.getTeamName()).equals(teamDTO.getTeamName())){
+            throw new CustomExceptionBadRequest("Aca nunca entra.");
+        }
+        return mapperTeam.mapperATeamDTO().apply(element);
+    })
+            .onErrorResume(error -> {
+        if(error.equals(HttpStatus.NOT_FOUND)){
+            return Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND));
+        }
+        return Mono.error(new RuntimeException("Nombre de equipo ya existente"));
+    });*/
 }
+
+
