@@ -4,6 +4,7 @@ import co.com.sofka.touroffranceapp.collections.Cyclist;
 import co.com.sofka.touroffranceapp.model.CyclistDTO;
 import co.com.sofka.touroffranceapp.usecases.cyclist.AddCyclistUseCase;
 import co.com.sofka.touroffranceapp.usecases.cyclist.DeleteCyclistUseCase;
+import co.com.sofka.touroffranceapp.usecases.cyclist.UpdateCyclistUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -46,4 +47,18 @@ public class CyclistRouter {
                         ))
         );
     }
+
+    @Bean
+    public RouterFunction<ServerResponse> updateCyclist(UpdateCyclistUseCase updateCyclistUseCase){
+        Function<CyclistDTO, Mono<ServerResponse>> updateCyclist = CyclistDTO -> updateCyclistUseCase.updateCyclist(CyclistDTO)
+                .flatMap(result -> ServerResponse.ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .bodyValue(result)
+                );
+        return route(
+                PUT("/cyclist/update").and(accept(MediaType.APPLICATION_JSON)),
+                request -> request.bodyToMono(CyclistDTO.class)
+                        .flatMap(updateCyclist));
+    }
+
 }
