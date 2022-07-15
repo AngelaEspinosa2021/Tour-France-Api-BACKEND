@@ -1,10 +1,7 @@
 package co.com.sofka.touroffranceapp.routers;
 
 import co.com.sofka.touroffranceapp.model.TeamDTO;
-import co.com.sofka.touroffranceapp.usecases.team.CreateTeamUseCase;
-import co.com.sofka.touroffranceapp.usecases.team.DeleteTeamUseCase;
-import co.com.sofka.touroffranceapp.usecases.team.GetTeamUseCase;
-import co.com.sofka.touroffranceapp.usecases.team.UpdateTeamUseCase;
+import co.com.sofka.touroffranceapp.usecases.team.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -70,6 +67,16 @@ public class TeamRouter {
                 PUT("/team/update").and(accept(MediaType.APPLICATION_JSON)),
                 request -> request.bodyToMono(TeamDTO.class)
                         .flatMap(updateTeam)
+        );
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> getAllTeam(GetAllTeamUseCase getAllTeamUseCase){
+        return route(
+                GET("/team/getAll").and(accept(APPLICATION_JSON)),
+                request -> ServerResponse.ok()
+                        .contentType(APPLICATION_JSON)
+                        .body(BodyInserters.fromPublisher(getAllTeamUseCase.get(), TeamDTO.class))
         );
     }
 }
