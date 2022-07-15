@@ -1,6 +1,7 @@
 package co.com.sofka.touroffranceapp.usecases.team;
 
 import co.com.sofka.touroffranceapp.exceptions.CustomExceptionBadRequest;
+import co.com.sofka.touroffranceapp.exceptions.CustomExceptionInternalServerError;
 import co.com.sofka.touroffranceapp.mapper.MapperTeam;
 import co.com.sofka.touroffranceapp.model.TeamDTO;
 import co.com.sofka.touroffranceapp.repositories.TeamRepository;
@@ -40,7 +41,7 @@ public class CreateTeamUseCase implements SaveTeamInterface {
         return teamRepository.findByTeamName(teamDTO.getTeamName())
                 .map(element -> {
                     if (element.getTeamName().contentEquals(teamDTO.getTeamName())) {
-                        throw new RuntimeException("estamos repetidos.");
+                        throw new CustomExceptionInternalServerError("Nombre de Equipo ya registrado.");
                     }
                     return element;
                 })

@@ -42,15 +42,19 @@ public class ExceptionHandler extends AbstractErrorWebExceptionHandler {
     private Mono<ServerResponse> renderErrorResponseBadRequest(ServerRequest request) {
         Map<String, Object> errorProperties = getErrorAttributes(request, ErrorAttributeOptions.defaults());
         int status = (int) errorProperties.get("status");
-        if (status == 400) {
+        /*if (status == 400) {
             return ServerResponse.status(HttpStatus.BAD_REQUEST).contentType(MediaType.APPLICATION_JSON)
                     .body(BodyInserters.fromValue(errorProperties));
-        }
+        }*/
         if (status == 404) {
             return ServerResponse.status(HttpStatus.NOT_FOUND).contentType(MediaType.APPLICATION_JSON)
                     .body(BodyInserters.fromValue(errorProperties));
         }
-        return ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR).contentType(MediaType.APPLICATION_JSON)
+        if(status == 500){
+            return ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR).contentType(MediaType.APPLICATION_JSON)
+                    .body(BodyInserters.fromValue(errorProperties));
+        }
+        return ServerResponse.status(HttpStatus.BAD_REQUEST).contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromValue(errorProperties));
     }
 }
