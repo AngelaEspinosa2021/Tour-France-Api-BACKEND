@@ -17,35 +17,35 @@ Levante el servidor local este le abrira por defecto en el localhost:8080
 La base de datos esta alojada en MongoAtlas, ya está configurada la conexion desde cualquier pc, pero si desea ingresar para revisar la forma en como se guardan los datos, encontrará un archivo TXT, con la información de la URL y el nombre de la Base de Datos, para que pueda generar la conexión desde la aplicación de escritorio MONGODB COMPASS.  
 ![image](https://user-images.githubusercontent.com/82293975/179292286-ee822fd8-540b-408e-a276-26cb69e2e04b.png)
 
-#METODOS
+# METODOS
 
-#Crear un Equipo
+# Crear un Equipo
 ![image](https://user-images.githubusercontent.com/82293975/179295415-aef331b3-8aa7-4e56-a89f-5b5b0fb55610.png)
 
-#Agregar Ciclistas a un equipo
+# Agregar Ciclistas a un equipo
 ![image](https://user-images.githubusercontent.com/82293975/179296960-69229cbd-c041-456d-afcf-57d432a6bae4.png)
 
-#Conocer los Ciclistas asociados a un codigo de equipo
+# Conocer los Ciclistas asociados a un codigo de equipo
 ![image](https://user-images.githubusercontent.com/82293975/179297374-af5bb46b-54bb-4340-85d7-13a57d95007a.png)
 
-#Editar un equipo
+# Editar un equipo
 ![image](https://user-images.githubusercontent.com/82293975/179297691-4db2323c-6a41-406f-8b4d-dca81988ac7b.png)
 
-#Conocer todos los equipos con cada uno de los ciclistas
+# Conocer todos los equipos con cada uno de los ciclistas
 ![image](https://user-images.githubusercontent.com/82293975/179297784-4e77566f-d899-43d9-af51-9b12d53f0d4f.png)
 
-#Eliminar un equipo completo con todos sus integrantes
+# Eliminar un equipo completo con todos sus integrantes
 ![image](https://user-images.githubusercontent.com/82293975/179297944-c4212325-2178-4745-8b31-92f726a04444.png)
 
-#Consultar los ciclistas de una nacionalidad especifica
+# Consultar los ciclistas de una nacionalidad especifica
 ![image](https://user-images.githubusercontent.com/82293975/179298215-8b6399aa-1c17-4b1a-9d45-09c22f526929.png)
 
-#Editar un ciclista
+# Editar un ciclista
 ![image](https://user-images.githubusercontent.com/82293975/179298396-f8b9adaa-7c20-4f39-945b-da0de8d7e266.png)
 
-#Eliminar un ciclista de un equipo
+# Eliminar un ciclista de un equipo
 ![image](https://user-images.githubusercontent.com/82293975/179299455-34979a8f-8b5d-48bc-80ee-c2c5b0ff18e9.png)
 
-#Consultar los equipos de un pais especifico
+# Consultar los equipos de un pais especifico
 ![image](https://user-images.githubusercontent.com/82293975/179299747-64b5a849-31b6-4059-9fa0-48f415d05b3a.png)
 
