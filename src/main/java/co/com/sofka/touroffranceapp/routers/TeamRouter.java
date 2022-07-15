@@ -79,4 +79,14 @@ public class TeamRouter {
                         .body(BodyInserters.fromPublisher(getAllTeamUseCase.get(), TeamDTO.class))
         );
     }
+
+    @Bean
+    public RouterFunction<ServerResponse> getAllTeamByCountry(GetAllTeamByCountryUseCase getAllTeamByCountryUseCase){
+        return route(
+                GET("/team/getByCountry/{country}").and(accept(APPLICATION_JSON)),
+                request -> ServerResponse.ok()
+                        .contentType(APPLICATION_JSON)
+                        .body(BodyInserters.fromPublisher(getAllTeamByCountryUseCase.apply(request.pathVariable("country")), TeamDTO.class))
+        );
+    }
 }
