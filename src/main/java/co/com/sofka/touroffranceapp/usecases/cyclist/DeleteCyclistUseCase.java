@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import reactor.core.publisher.Mono;
 
+/**
+ * Clase que representa el caso de uso de eliminar un Cyclist.
+ */
 @Service
 @Validated
 public class DeleteCyclistUseCase implements DeleteCyclistInterface{

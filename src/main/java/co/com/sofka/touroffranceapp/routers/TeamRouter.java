@@ -2,6 +2,7 @@ package co.com.sofka.touroffranceapp.routers;
 
 import co.com.sofka.touroffranceapp.model.TeamDTO;
 import co.com.sofka.touroffranceapp.usecases.team.CreateTeamUseCase;
+import co.com.sofka.touroffranceapp.usecases.team.DeleteTeamUseCase;
 import co.com.sofka.touroffranceapp.usecases.team.GetTeamUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,6 +43,18 @@ public class TeamRouter {
                         .body(BodyInserters.fromPublisher(getTeamUseCase.apply(
                                 request.pathVariable("id")),
                                 TeamDTO.class
+                        ))
+        );
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> deleteTeam(DeleteTeamUseCase deleteTeamUseCase){
+        return route(
+                DELETE("/team/delete/{id}").and(accept(APPLICATION_JSON)),
+                request -> ServerResponse.accepted()
+                        .contentType(APPLICATION_JSON)
+                        .body(BodyInserters.fromPublisher(deleteTeamUseCase.deleteTeam(request.pathVariable("id")),
+                                Void.class
                         ))
         );
     }
