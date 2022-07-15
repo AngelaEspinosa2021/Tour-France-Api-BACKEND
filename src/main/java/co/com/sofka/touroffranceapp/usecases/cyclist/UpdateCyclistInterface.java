@@ -6,6 +6,9 @@ import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
 
+/**
+ * Interfaz funcional de modificar un Cyclist.
+ */
 @FunctionalInterface
 public interface UpdateCyclistInterface {
 
