@@ -48,4 +48,8 @@ public class TeamDTO {
         this.cyclists= Optional.ofNullable(cyclists).orElse(new ArrayList<>());
         return cyclists;
     }
+
+    public void setCyclists(List<CyclistDTO> cyclists) {
+        this.cyclists = cyclists;
+    }
 }
