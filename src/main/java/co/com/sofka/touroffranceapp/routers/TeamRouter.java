@@ -11,7 +11,6 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
-import java.awt.image.PackedColorModel;
 import java.util.function.Function;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;

@@ -11,6 +11,9 @@ import reactor.core.publisher.Mono;
 
 import java.util.Objects;
 
+/**
+ * Clase que representa el caso de uso de agregar un Cyclist a un Team.
+ */
 @Service
 @Validated
 public class AddCyclistUseCase implements SaveCyclistInterface{
@@ -29,7 +32,6 @@ public class AddCyclistUseCase implements SaveCyclistInterface{
 
     @Override
     public Mono<TeamDTO> saveCyclist(CyclistDTO cyclistDTO) {
-        Objects.requireNonNull(cyclistDTO.getTeamId(), "TeamID es obligatorio.");
         return getTeamUseCase.apply(cyclistDTO.getTeamId()).flatMap(team ->
                 cyclistRepository.save(mapperCyclist.mapperACyclist(null).apply(cyclistDTO))
                         .map(cyclist -> {
