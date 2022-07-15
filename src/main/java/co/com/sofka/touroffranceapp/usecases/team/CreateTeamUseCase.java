@@ -39,7 +39,7 @@ public class CreateTeamUseCase implements SaveTeamInterface {
                     }
                     return element;
                 })
-                .switchIfEmpty(teamRepository.save(mapperTeam.mapperATeamWithId(null).apply(teamDTO))
+                .switchIfEmpty(teamRepository.save(mapperTeam.mapperATeam(null).apply(teamDTO))
                         .map(mapperTeam.mapperATeamDTO()));
 
     }

@@ -4,6 +4,7 @@ import co.com.sofka.touroffranceapp.model.TeamDTO;
 import co.com.sofka.touroffranceapp.usecases.team.CreateTeamUseCase;
 import co.com.sofka.touroffranceapp.usecases.team.DeleteTeamUseCase;
 import co.com.sofka.touroffranceapp.usecases.team.GetTeamUseCase;
+import co.com.sofka.touroffranceapp.usecases.team.UpdateTeamUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -56,6 +57,19 @@ public class TeamRouter {
                         .body(BodyInserters.fromPublisher(deleteTeamUseCase.deleteTeam(request.pathVariable("id")),
                                 Void.class
                         ))
+        );
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> updateTeam(UpdateTeamUseCase updateTeamUseCase){
+        Function<TeamDTO, Mono<ServerResponse>> updateTeam = TeamDTO -> updateTeamUseCase.updateTeam(TeamDTO)
+                .flatMap(result -> ServerResponse.ok()
+                                .contentType(APPLICATION_JSON)
+                                .bodyValue(result));
+        return route(
+                PUT("/team/update").and(accept(MediaType.APPLICATION_JSON)),
+                request -> request.bodyToMono(TeamDTO.class)
+                        .flatMap(updateTeam)
         );
     }
 }
