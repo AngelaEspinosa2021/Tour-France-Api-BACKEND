@@ -1,5 +1,6 @@
 package co.com.sofka.touroffranceapp.usecases.cyclist;
 
+import co.com.sofka.touroffranceapp.exceptions.CustomExceptionInternalServerError;
 import co.com.sofka.touroffranceapp.mapper.MapperCyclist;
 import co.com.sofka.touroffranceapp.model.CyclistDTO;
 import co.com.sofka.touroffranceapp.model.TeamDTO;
@@ -35,6 +36,9 @@ public class AddCyclistUseCase implements SaveCyclistInterface{
         return getTeamUseCase.apply(cyclistDTO.getTeamId()).flatMap(team ->
                 cyclistRepository.save(mapperCyclist.mapperACyclist(null).apply(cyclistDTO))
                         .map(cyclist -> {
+                            if(team.getCyclists().size()>7){
+                                throw new CustomExceptionInternalServerError("El equipo ha llegado al limite de 8 ciclistas.");
+                            }
                             team.getCyclists().add(cyclistDTO);
                             return team;
                         })
