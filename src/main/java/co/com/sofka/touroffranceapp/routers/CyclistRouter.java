@@ -3,17 +3,18 @@ package co.com.sofka.touroffranceapp.routers;
 import co.com.sofka.touroffranceapp.collections.Cyclist;
 import co.com.sofka.touroffranceapp.model.CyclistDTO;
 import co.com.sofka.touroffranceapp.usecases.cyclist.AddCyclistUseCase;
+import co.com.sofka.touroffranceapp.usecases.cyclist.DeleteCyclistUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
+import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
 import java.util.function.Function;
 
-import static org.springframework.web.reactive.function.server.RequestPredicates.POST;
-import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
+import static org.springframework.web.reactive.function.server.RequestPredicates.*;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 @Configuration
@@ -31,5 +32,18 @@ public class CyclistRouter {
                 request -> request.bodyToMono(CyclistDTO.class)
                         .flatMap(addCyclist));
 
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> deleteCyclist(DeleteCyclistUseCase deleteCyclistUseCase){
+        return route(
+                DELETE("/cyclist/delete/{id}").and(accept(MediaType.APPLICATION_JSON)),
+                request -> ServerResponse.accepted()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(BodyInserters.fromPublisher(
+                                deleteCyclistUseCase.deleteCyclist(request.pathVariable("id")),
+                                Void.class
+                        ))
+        );
     }
 }
