@@ -20,13 +20,10 @@ public class Cyclist {
     @Id
     private String cyclistId;
 
-    @NotBlank(message = "Debe tener un nombre completo asociado para este objeto.")
     private String fullName;
 
-    @NotBlank(message = "Debe tener un teamId asociado para este objeto.")
     private String teamId;
 
-    @NotBlank(message = "Debe tener una nacionalidad asociada para este objeto.")
     private String nationality;
 
     public void setCyclistId(String cyclistId) {

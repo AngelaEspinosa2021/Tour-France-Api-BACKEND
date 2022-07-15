@@ -24,13 +24,14 @@ public class CreateTeamUseCase implements SaveTeamInterface {
 
     private final MapperTeam mapperTeam;
 
-    public CreateTeamUseCase(TeamRepository teamRepository, MapperTeam mapperTeam){
-        this.teamRepository=teamRepository;
-        this.mapperTeam=mapperTeam;
+    public CreateTeamUseCase(TeamRepository teamRepository, MapperTeam mapperTeam) {
+        this.teamRepository = teamRepository;
+        this.mapperTeam = mapperTeam;
     }
 
     /**
      * Metodo que permite crear un nuevo Team
+     *
      * @param teamDTO
      * @return Objeto de TeamDTO
      */
@@ -38,28 +39,17 @@ public class CreateTeamUseCase implements SaveTeamInterface {
     public Mono<TeamDTO> saveTeam(TeamDTO teamDTO) {
         return teamRepository.findByTeamName(teamDTO.getTeamName())
                 .map(element -> {
-                    if(element.getTeamName().equals(Mono.empty())){
-                        teamRepository.save(mapperTeam.mapperATeam().apply(teamDTO));
+                    if (element.getTeamName().contentEquals(teamDTO.getTeamName())) {
+                        throw new RuntimeException("estamos repetidos.");
                     }
-                    throw new CustomExceptionBadRequest("Nombre de Equipo ya registrado.");
-                });
+                    return element;
+                })
+                .switchIfEmpty(teamRepository.save(mapperTeam.mapperATeamWithId(null).apply(teamDTO))
+                        .map(mapperTeam.mapperATeamDTO()));
+
     }
-
-
-
-/*     return teamRepository.save(mapperTeam.mapperATeam().apply(teamDTO))
-            .map(element -> {
-        if(teamRepository.findByTeamName(teamDTO.getTeamName()).equals(teamDTO.getTeamName())){
-            throw new CustomExceptionBadRequest("Aca nunca entra.");
-        }
-        return mapperTeam.mapperATeamDTO().apply(element);
-    })
-            .onErrorResume(error -> {
-        if(error.equals(HttpStatus.NOT_FOUND)){
-            return Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND));
-        }
-        return Mono.error(new RuntimeException("Nombre de equipo ya existente"));
-    });*/
 }
+
+
 
 

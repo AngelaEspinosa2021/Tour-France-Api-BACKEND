@@ -23,10 +23,8 @@ public class Team {
     private String teamId;
 
     @Indexed(unique = true)
-    @NotBlank(message = "Debe tener un nombre de equipo asociado para este objeto.")
     private String teamName;
 
-    @NotBlank(message = "Debe tener un pais asociado para este objeto.")
     private String associatedCountry;
 
     public void setTeamId(String teamId) {

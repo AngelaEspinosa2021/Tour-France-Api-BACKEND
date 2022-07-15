@@ -39,6 +39,11 @@ public class TeamDTO {
         this.associatedCountry = associatedCountry;
     }
 
+    public TeamDTO(String teamName, String associatedCountry) {
+        this.teamName = teamName;
+        this.associatedCountry = associatedCountry;
+    }
+
     public List<CyclistDTO> getCyclists(){
         this.cyclists= Optional.ofNullable(cyclists).orElse(new ArrayList<>());
         return cyclists;

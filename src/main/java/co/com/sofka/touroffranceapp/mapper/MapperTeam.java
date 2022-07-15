@@ -20,7 +20,7 @@ public class MapperTeam {
      * @return Objeto de Team.
      */
 
-    public Function<TeamDTO, Team> mapperATeam(String teamId){
+    public Function<TeamDTO, Team> mapperATeamWithId(String teamId){
         return updateTeam -> {
             var team = new Team();
             team.setTeamId(teamId);
@@ -29,6 +29,16 @@ public class MapperTeam {
             return team;
         };
     }
+
+    /*public Function<TeamDTO, Team> mapperATeam(){
+        return updateTeam -> {
+            var team = new Team();
+            team.setTeamId(null);
+            team.setTeamName(updateTeam.getTeamName());
+            team.setAssociatedCountry(updateTeam.getAssociatedCountry());
+            return team;
+        };
+    }*/
 
     /**
      * Metodo que se encarga de mapear desde la colección Team para transferir los datos al DTO..
