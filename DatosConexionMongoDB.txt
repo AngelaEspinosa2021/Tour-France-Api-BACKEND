@@ -1,0 +1,5 @@
+URL PARA CONECTARSE AL CLUSTER: 
+mongodb+srv://AngelaEspinosa:4ng3l41987@cluster0.7lkdbdt.mongodb.net/?retryWrites=true&w=majority
+
+NOMBRE DE LA BASE DE DATOS:
+TourOfFrance_Database
