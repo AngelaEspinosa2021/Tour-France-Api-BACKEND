@@ -4,6 +4,7 @@ import co.com.sofka.touroffranceapp.collections.Cyclist;
 import co.com.sofka.touroffranceapp.model.CyclistDTO;
 import co.com.sofka.touroffranceapp.usecases.cyclist.AddCyclistUseCase;
 import co.com.sofka.touroffranceapp.usecases.cyclist.DeleteCyclistUseCase;
+import co.com.sofka.touroffranceapp.usecases.cyclist.GetAllCyclistByTeamUseCase;
 import co.com.sofka.touroffranceapp.usecases.cyclist.UpdateCyclistUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +16,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.function.Function;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.web.reactive.function.server.RequestPredicates.*;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
@@ -59,6 +61,17 @@ public class CyclistRouter {
                 PUT("/cyclist/update").and(accept(MediaType.APPLICATION_JSON)),
                 request -> request.bodyToMono(CyclistDTO.class)
                         .flatMap(updateCyclist));
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> getAllCyclistByTeam(GetAllCyclistByTeamUseCase getAllCyclistByTeamUseCase){
+        return route(
+                GET("/cyclist/getByTeam/{teamId}").and(accept(APPLICATION_JSON)),
+                request -> ServerResponse.ok()
+                        .contentType(APPLICATION_JSON)
+                        .body(BodyInserters.fromPublisher(getAllCyclistByTeamUseCase.apply(request.pathVariable("teamId")),
+                                CyclistDTO.class))
+        );
     }
 
 }
