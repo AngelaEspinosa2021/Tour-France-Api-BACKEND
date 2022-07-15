@@ -2,10 +2,7 @@ package co.com.sofka.touroffranceapp.routers;
 
 import co.com.sofka.touroffranceapp.collections.Cyclist;
 import co.com.sofka.touroffranceapp.model.CyclistDTO;
-import co.com.sofka.touroffranceapp.usecases.cyclist.AddCyclistUseCase;
-import co.com.sofka.touroffranceapp.usecases.cyclist.DeleteCyclistUseCase;
-import co.com.sofka.touroffranceapp.usecases.cyclist.GetAllCyclistByTeamUseCase;
-import co.com.sofka.touroffranceapp.usecases.cyclist.UpdateCyclistUseCase;
+import co.com.sofka.touroffranceapp.usecases.cyclist.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -70,6 +67,17 @@ public class CyclistRouter {
                 request -> ServerResponse.ok()
                         .contentType(APPLICATION_JSON)
                         .body(BodyInserters.fromPublisher(getAllCyclistByTeamUseCase.apply(request.pathVariable("teamId")),
+                                CyclistDTO.class))
+        );
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> getAllCyclistByNationality(GetAllCyclistByNationalityUseCase getAllCyclistByNationalityUseCase){
+        return route(
+                GET("/cyclist/getByNationality/{nationality}").and(accept(APPLICATION_JSON)),
+                request -> ServerResponse.ok()
+                        .contentType(APPLICATION_JSON)
+                        .body(BodyInserters.fromPublisher(getAllCyclistByNationalityUseCase.apply(request.pathVariable("nationality")),
                                 CyclistDTO.class))
         );
     }
